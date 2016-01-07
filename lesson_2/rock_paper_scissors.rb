@@ -47,11 +47,8 @@ loop do
                  'spock'
                end
 
-      if VALID_CHOICES.include?(choice)
-        break
-      else
-        prompt "That's not a valid choice."
-      end
+      break if VALID_CHOICES.include?(choice)
+      prompt "That's not a valid choice."
     end
 
     computer_choice = VALID_CHOICES.sample
@@ -61,12 +58,10 @@ loop do
 
     display_result(choice, computer_choice, score, computer_score)
 
-    if score == 5 || computer_score == 5
-      prompt "GAME OVER!"
-      break
-    end
+    break if score == 5 || computer_score == 5
   end
 
+  prompt "GAME OVER!"
   prompt "Do you want to play again?"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
