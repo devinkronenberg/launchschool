@@ -91,7 +91,7 @@ class RPSGame
   end
 
   def game_over?
-    human.score == 10 || computer.score == 10
+    human.score == 5 || computer.score == 5
   end
 
   def update_score
@@ -142,6 +142,12 @@ class RPSGame
     puts "#{human.name}: #{human.score}; #{computer.name}: #{computer.score}"
   end
 
+  def display_result
+    display_moves
+    display_winner
+    display_score
+  end
+
   def display_game_over_message
     if human.score > computer.score
       puts "#{human.name} won the game!"
@@ -155,17 +161,13 @@ class RPSGame
 
     loop do
       initialize_score
-
       loop do
         human.choose
         computer.choose
         update_score
-        display_moves
-        display_winner
-        display_score
+        display_result
         break if game_over?
       end
-
       display_game_over_message
       break unless play_again?
     end
