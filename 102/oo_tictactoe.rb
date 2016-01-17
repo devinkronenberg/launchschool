@@ -13,7 +13,7 @@ class Board
   end
 
   def unmarked_keys
-    @squares.keys.select {|key| @squares[key].unmarked? }
+    @squares.keys.select { |key| @squares[key].unmarked? }
   end
 
   def full?
@@ -35,7 +35,7 @@ class Board
   end
 
   def reset
-    (1..9).each {|key| @squares[key] = Square.new}
+    (1..9).each { |key| @squares[key] = Square.new }
   end
 
   def draw
@@ -54,12 +54,11 @@ class Board
 
   private
 
-    def three_identical_markers?(squares)
-      markers = squares.select(&:marked?).collect(&:marker)
-      return false if markers.size != 3
-      markers.min == markers.max
-    end
-
+  def three_identical_markers?(squares)
+    markers = squares.select(&:marked?).collect(&:marker)
+    return false if markers.size != 3
+    markers.min == markers.max
+  end
 end
 
 class Square
