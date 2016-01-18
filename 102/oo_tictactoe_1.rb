@@ -247,11 +247,6 @@ class TTTGame
     @current_marker = FIRST_TO_MOVE
     clear
   end
-
-  # def display_play_again_message
-    # puts "Let's play again!"
-    # puts ""
-  # end
 end
 
 game = TTTGame.new
