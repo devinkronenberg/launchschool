@@ -104,6 +104,29 @@ class TodoList
       yield(todo)
     end
   end
+
+  def select
+    results = []
+    each do |todo|
+      results << todo if yield(todo)
+    end
+    results
+  end
+
+  def select
+    list = TodoList.new(title)
+    each do |todo|
+      list.add(todo) if yield(todo)
+    end
+    list
+  end
+
+  def each
+    @todos.each do |todo|
+      yield(todo)
+    end
+    self
+  end
 end
 
 todo1 = Todo.new("Buy milk")
