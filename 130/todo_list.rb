@@ -29,7 +29,6 @@ end
 
 class TodoList
   attr_accessor :title
-  attr_reader :todos
 
   def initialize(title)
     @title = title
@@ -103,14 +102,7 @@ class TodoList
     @todos.each do |todo|
       yield(todo)
     end
-  end
-
-  def select
-    results = []
-    each do |todo|
-      results << todo if yield(todo)
-    end
-    results
+    self
   end
 
   def select
@@ -119,13 +111,6 @@ class TodoList
       list.add(todo) if yield(todo)
     end
     list
-  end
-
-  def each
-    @todos.each do |todo|
-      yield(todo)
-    end
-    self
   end
 
   def find_by_title(title)
@@ -168,7 +153,7 @@ list.pop
 
 puts list
 
-# todo = list.find_by_title('Clean room')
-# todo.done!
+todo = list.find_by_title('Clean room')
+todo.done!
 
-# puts list
+puts list
