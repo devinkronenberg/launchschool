@@ -1,42 +1,33 @@
 PROTEINS = {
-  'AUG'                => 'Methionine',
-  'UUU, UUC'           => 'Phenylalanine',
-  'UUA, UUG'           => 'Leucine',
-  'UCU, UCC, UCA, UCG' => 'Serine',
-  'UAU, UAC'           => 'Tyrosine',
-  'UGU, UGC'           => 'Cysteine',
-  'UGG'                => 'Tryptophan',
-  'UAA, UAG, UGA'      => 'STOP'
+  'AUG' => 'Methionine',
+  'UUU' => 'Phenylalanine',
+  'UUC' => 'Phenylalanine',
+  'UUA' => 'Leucine',
+  'UUG' => 'Leucine',
+  'UCU' => 'Serine',
+  'UCC' => 'Serine',
+  'UCA' => 'Serine',
+  'UCG' => 'Serine',
+  'UAU' => 'Tyrosine',
+  'UAC' => 'Tyrosine',
+  'UGU' => 'Cysteine',
+  'UGC' => 'Cysteine',
+  'UGG' => 'Tryptophan',
+  'UAA' => 'STOP',
+  'UAG' => 'STOP',
+  'UGA' => 'STOP'
 }
 
-class Translation
+module Translation
   def self.of_codon(str)
-    fail InvalidCodonError if PROTEINS.keys.none? { |codon| codon.match(str) }
-
-    PROTEINS.each do |codon, protein|
-      return protein if codon.match(str)
-    end
+    PROTEINS.fetch(str) { fail InvalidCodonError }
   end
 
   def self.of_rna(str)
-    polypeptide = []
-    rna = str
-
-    until rna.empty?
-      codon = ''
-      protein = ''
-
-      while protein.empty?
-        codon << rna.slice!(0..2)
-
-        protein = Translation.of_codon(codon)
-      end
-      break if protein == 'STOP'
-
-      polypeptide << protein
-    end
-
-    polypeptide
+    str
+      .scan(/.../)
+      .map { |codon| of_codon(codon) }
+      .take_while { |protein| protein != 'STOP' }
   end
 end
 
