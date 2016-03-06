@@ -1,4 +1,4 @@
-PROTEINS = {
+CODONS = {
   'AUG' => 'Methionine',
   'UUU' => 'Phenylalanine',
   'UUC' => 'Phenylalanine',
@@ -20,14 +20,14 @@ PROTEINS = {
 
 module Translation
   def self.of_codon(str)
-    PROTEINS.fetch(str) { fail InvalidCodonError }
+    CODONS.fetch(str) { fail InvalidCodonError }
   end
 
   def self.of_rna(str)
     str
       .scan(/.../)
       .map { |codon| of_codon(codon) }
-      .take_while { |protein| protein != 'STOP' }
+      .take_while { |codon| codon != 'STOP' }
   end
 end
 
