@@ -21,9 +21,8 @@ class CircularBuffer
   end
 
   def write!(item)
-    if item.nil?
-      return nil
-    elsif @contents.size == @max_size
+    return if item.nil?
+    if @contents.size == @max_size
       @contents.shift
       write(item)
     else
