@@ -22,21 +22,14 @@ class CircularBuffer
 
   def write!(item)
     return if item.nil?
-    if @contents.size == @max_size
-      @contents.shift
-      write(item)
-    else
-      write(item)
-    end
+    @contents.shift if @contents.size == @max_size
+    write(item)
   end
 
   def clear
     @contents.clear
   end
 
-  class BufferEmptyException < StandardError
-  end
-
-  class BufferFullException < StandardError
-  end
+  class BufferEmptyException < StandardError; end
+  class BufferFullException < StandardError; end
 end
